@@ -1,0 +1,1 @@
+"""Tools werden ausschließlich durch ToolRegistry ausgeführt."""

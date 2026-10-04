@@ -1,0 +1,40 @@
+name: Build CLS for Windows
+on:
+  workflow_dispatch:
+  push:
+    tags: ['desktop-v*']
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: python -m pip install -r requirements.txt "pyinstaller>=6.12,<7"
+      - run: python -m unittest discover -s tests -v
+      - run: python desktop-shell/scripts/build-core.py
+      - run: npm ci
+        working-directory: desktop-shell
+      - run: npm run test
+        working-directory: desktop-shell
+      - run: npm run test:bridge
+        working-directory: desktop-shell
+        env:
+          CLS_PYTHON: python
+      - run: npm run package:win
+        working-directory: desktop-shell
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CLS-Windows-Installer
+          path: desktop-shell/release/*.exe
+          if-no-files-found: error

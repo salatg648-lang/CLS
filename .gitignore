@@ -1,0 +1,21 @@
+# Environment
+.env
+.env.local
+ 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+ 
+# Data (persistente Daten nicht in Git)
+data/
+ 
+# Desktop shell builds and dependencies
+node_modules/
+desktop-shell/dist/
+desktop-shell/release/
+build/
+*.tsbuildinfo
+.venv-build/

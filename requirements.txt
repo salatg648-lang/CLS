@@ -1,0 +1,10 @@
+# CLS – Personal AI System (Phase 1–6)
+# Python 3.10+
+ 
+customtkinter>=5.2.0
+google-genai>=1.0.0
+anyio>=4.14.2  # Sicherheitsfixes der transitiven SDK-/HTTP-Abhängigkeit
+python-dotenv>=1.0.0
+# Perplexity läuft über die Standardbibliothek (urllib) — keine Extra-Abhängigkeit
+pypdf>=4.0.0   # nur für den PDF-Import (Phase 3); .txt/.md/.docx gehen auch ohne
+# SQLite (Knowledge, Projekte) ist in Python eingebaut — keine Extra-Abhängigkeit
